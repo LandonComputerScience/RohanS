@@ -1,0 +1,78 @@
+// Represents a display panel for a Craps table
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class DisplayPanel extends JPanel
+{
+  private JTextField wonText, lostText, pointText, dieTotal;
+  private int wonCount, lostCount;
+
+  // Constructor
+  public DisplayPanel()
+  {
+    super(new GridLayout(2, 4, 10, 0));
+    setBorder(new EmptyBorder(0, 0, 5, 0));
+
+    add(new JLabel ("    Won:"));
+    add(new JLabel("    Lost:"));
+    add(new JLabel("    Point:"));
+    add(new JLabel("Die Total:"));
+
+    Font displayFont = new Font("Monospaced", Font.BOLD, 32);
+
+    wonText = new JTextField("  0", 5);
+    wonText.setFont(displayFont);
+    wonText.setEditable(false);
+    wonText.setBackground(Color.WHITE);
+    add(wonText);
+
+    lostText = new JTextField("  0", 5);
+    lostText.setFont(displayFont);
+    lostText.setEditable(false);
+    lostText.setBackground(Color.WHITE);
+    add(lostText);
+
+    pointText = new JTextField(5);
+    pointText.setFont(displayFont);
+    pointText.setEditable(false);
+    pointText.setBackground(Color.DARK_GRAY);
+    add(pointText);
+
+    dieTotal = new JTextField(5);
+    dieTotal.setFont(displayFont);
+    dieTotal.setEditable(false);
+    dieTotal.setBackground(Color.YELLOW);
+    add(dieTotal);
+
+  }
+
+  // Updates this display, based on the result and
+  // "point" in the previous roll
+  public void update(int result, int point)
+  {
+    if (result > 0)
+    {
+      wonCount++;
+      wonText.setText("  " + wonCount);
+      pointText.setText("");
+      pointText.setBackground(Color.GREEN);
+    }
+    else if (result < 0)
+    {
+      lostCount++;
+      lostText.setText("  " + lostCount);
+      pointText.setText(" ");
+      pointText.setBackground(Color.RED);
+    }
+    else
+    {
+      pointText.setText(" " + point);
+      pointText.setBackground(Color.YELLOW);
+
+
+    }
+    // dieTotal.setText();
+  }
+}
